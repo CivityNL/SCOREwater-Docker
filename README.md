@@ -10,7 +10,7 @@ The Docker-compose file contains the following components:
 
 * Orion ContextBroker, accessible via port 1026 [example request](http://host.docker.internal:1026/v2/entities);
 * MongoDB for the ContextBroker, accessible via port 27017;
-* Draco, accessible via port 5050. The administrator console is accessible via port 8081 ([link](http://host.docker.internal:8081));
+* Draco, accessible via port 5050. The administrator console is accessible via port 8081 ([link](http://host.docker.internal:8081/nifi/));
 * ActiveMQ, accessible via port 61616. The administrator console is accessible via port 8161 ([link](http://host.docker.internal:8161));
 * PostgreSQL database, accessible via port 5432.
 
