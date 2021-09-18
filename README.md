@@ -16,4 +16,5 @@ The Docker-compose file contains the following components:
 
 In addition, the following IOT agents are present:
 
-* Bathingwater MQTT Gothenburg running on port 8080. 
+* Bathingwater MQTT Gothenburg running on port 8080; 
+* FIWARE LWM2M IOT Agent, administrative interface running op port 4041 ([about](http://host.docker.internal:4041/iot/about)).
