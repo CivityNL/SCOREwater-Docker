@@ -94,17 +94,24 @@ services:
       - "61616:61616"
       - "8161:8161"
 
-  scorewater-gbg:
-    container_name: scorewater-gbg
-    hostname: scorewater-gbg
-    build: scorewater-gbg
-    depends_on:
-      - activemq
-      - orion
-    networks:
-      - default
-    ports:
-      - "8080:8080"
+  # scorewater-gbg:
+  #  container_name: scorewater-gbg
+  #  hostname: scorewater-gbg
+  #  build: scorewater-gbg
+  #  environment:
+  #    - "MQTT_PASSWORD=password"
+  #    - "MQTT_BROKER_URL=ssl://mq.blink.services"
+  #    - "MQTT_BROKER_PORT=8883"
+  #    - "MQTT_BROKER_USERNAME=api_user_intraservice_goteborg"
+  #    - "MQTT.BROKER.PASSWORD=Intraservice2021"
+  #    - "MQTT.BROKER.TOPIC=sensor/gteborgs_stad__intraservice/#"
+  #  depends_on:
+  #    - activemq
+  #    - orion
+  #  networks:
+  #    - default
+  #  ports:
+  #    - "8080:8080"
   
   postgis:
     hostname: postgis
