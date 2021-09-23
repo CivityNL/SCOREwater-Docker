@@ -21,7 +21,7 @@ USER lwm2m:lwm2m
 # Checkout the code and build it
 RUN cd /src/lwm2m && \
     git clone https://github.com/telefonicaid/lightweightm2m-iotagent.git && \
-	cd lightweightm2m-iotagent && \
-	npm install
+    cd lightweightm2m-iotagent && \
+    npm install
 
 ENTRYPOINT /src/lwm2m/lightweightm2m-iotagent/bin/lwm2mAgent.js
