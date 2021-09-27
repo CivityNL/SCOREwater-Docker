@@ -58,9 +58,9 @@ services:
      - "5050:5050"
       
   lwm2m-iot-agent:
-    image: fiware/lightweightm2m-iotagent
     hostname: lwm2m-iot-agent
     container_name: lwm2m-iot-agent
+    build: lwm2m-iot-agent
     depends_on:
       - mongo-db
     expose:
@@ -94,24 +94,23 @@ services:
       - "61616:61616"
       - "8161:8161"
 
-  # scorewater-gbg:
-  #  container_name: scorewater-gbg
-  #  hostname: scorewater-gbg
-  #  build: scorewater-gbg
-  #  environment:
-  #    - "MQTT_PASSWORD=password"
-  #    - "MQTT_BROKER_URL=ssl://mq.blink.services"
-  #    - "MQTT_BROKER_PORT=8883"
-  #    - "MQTT_BROKER_USERNAME=api_user_intraservice_goteborg"
-  #    - "MQTT.BROKER.PASSWORD=Intraservice2021"
-  #    - "MQTT.BROKER.TOPIC=sensor/gteborgs_stad__intraservice/#"
-  #  depends_on:
-  #    - activemq
-  #    - orion
-  #  networks:
-  #    - default
-  #  ports:
-  #    - "8080:8080"
+  scorewater-gbg:
+    container_name: scorewater-gbg
+    hostname: scorewater-gbg
+    build: scorewater-gbg
+    environment:
+      - "MQTT_BROKER_URL=ssl://@@ToDo"
+      - "MQTT_BROKER_PORT=@@ToDo"
+      - "MQTT_BROKER_USERNAME=@@ToDo"
+      - "MQTT.BROKER.PASSWORD=@@ToDd"
+      - "MQTT.BROKER.TOPIC=@@ToDo"
+    depends_on:
+      - activemq
+      - orion
+    networks:
+      - default
+    ports:
+      - "8080:8080"
   
   postgis:
     hostname: postgis
