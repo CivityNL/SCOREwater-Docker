@@ -88,11 +88,13 @@ services:
     expose:
       - "61616"
       - "8161"
+      - "1883"
     networks:
       - default
     ports:
       - "61616:61616"
       - "8161:8161"
+      - "1883:1883"
 
   scorewater-gbg:
     container_name: scorewater-gbg
