@@ -31,6 +31,8 @@ RUN cd /src/civity/SCOREwater-Java/orion-contextbroker-client && \
 
 RUN cd /src/civity/SCOREwater-Java/scorewater-minimum-viable-iot-agent && \
     mvn clean install
+	
+RUN ls -l /src/civity/SCOREwater-Java/scorewater-minimum-viable-iot-agent/scorewater-gbg-bathing-water/target/scorewater-gbg-bathing-water-1.0-SNAPSHOT.jar
 
 # The Spring Boot application is running on port 8080 (though there is nothing there yet)
 EXPOSE 8080
