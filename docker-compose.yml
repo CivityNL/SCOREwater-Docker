@@ -101,11 +101,21 @@ services:
     hostname: scorewater-gbg
     build: scorewater-gbg
     environment:
-     - "MQTT_BROKER_URL=tcp://activemq"
-     - "MQTT_BROKER_PORT=1883"
-     - "MQTT_BROKER_USERNAME=admin"
-     - "MQTT_BROKER_PASSWORD=admin"
-     - "MQTT_BROKER_TOPIC=sensor/gteborgs_stad__intraservice/#"
+      - "ACTIVEMQ_BROKER_URL=tcp://activemq:61616"
+      - "ACTIVEMQ_CONCURRENT_CONSUMERS=1"
+      - "ACTIVEMQ_QUEUE_NAME_PREFIX=bathing-water-gbg"
+      - "CONTEXT_BROKER_URL=http://orion:1026"
+      - "CONTEXT_BROKER_SERVICE=badvattengbg"
+      - "MQTT_BROKER_URL=tcp://activemq"
+      - "MQTT_BROKER_PORT=1883"
+      - "MQTT_BROKER_USERNAME=admin"
+      - "MQTT_BROKER_PASSWORD=admin"
+      - "MQTT_BROKER_TOPIC=sensor/gteborgs_stad__intraservice/#"
+      - "PG_HOST=postgis"
+      - "PG_PORT=5432"
+      - "PG_DATABASE=turbinator"
+      - "PG_USER=turbinator"
+      - "PG_PASSWORD=password"
     depends_on:
      - activemq
      - orion
@@ -121,6 +131,11 @@ services:
     hostname: scorewater-turbinator
     build: scorewater-turbinator
     environment:
+      - "ACTIVEMQ_BROKER_URL=tcp://activemq:61616"
+      - "ACTIVEMQ_CONCURRENT_CONSUMERS=1"
+      - "ACTIVEMQ_QUEUE_NAME_PREFIX=turbinator"
+      - "CONTEXT_BROKER_URL=http://orion:1026"
+      - "CONTEXT_BROKER_SERVICE=turbinator"
       - "MQTT_BROKER_URL=tcp://activemq"
       - "MQTT_BROKER_PORT=1883"
       - "MQTT_BROKER_USERNAME=admin"
