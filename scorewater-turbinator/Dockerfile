@@ -14,8 +14,6 @@ RUN mkdir -p /src/civity && \
     chown -R springboot /src/civity && \
     chgrp -R springboot /src/civity
 	
-RUN ls -l /src/civity
-
 # Switch to user who will be running the application
 USER springboot:springboot
 
@@ -36,7 +34,7 @@ RUN cd /src/civity/SCOREwater-Java/orion-contextbroker-client && \
 RUN cd /src/civity/SCOREwater-Java/scorewater-minimum-viable-iot-agent && \
     mvn clean install
 
-# The Spring Boot application is running on port 8080 (though there is nothing there yet)
+# The Spring Boot application is running on port 8080
 EXPOSE 8080
 
 # Define entrypoint
