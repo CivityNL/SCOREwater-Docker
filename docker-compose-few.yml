@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   orion:
-    image: fiware/orion-ld
+    image: fiware/orion
     hostname: orion
     container_name: orion
     expose:
@@ -45,36 +45,43 @@ services:
       - "8161:8161"
       - "1883:1883"
       
-  scorewater-turbinator:
-    container_name: scorewater-turbinator
-    hostname: scorewater-turbinator
-    build: scorewater-turbinator
+  perseo-core:
+    image: telefonicaiot/perseo-core
+    hostname: perseo-core
     environment:
-      - "ACTIVEMQ_BROKER_URL=tcp://activemq:61616"
-      - "ACTIVEMQ_CONCURRENT_CONSUMERS=1"
-      - "ACTIVEMQ_QUEUE_NAME_PREFIX=turbinator"
-      - "CONTEXT_BROKER_URL=http://orion:1026"
-      - "CONTEXT_BROKER_SERVICE=turbinator"
-      - "MQTT_BROKER_URL=tcp://212.237.149.212"
-      - "MQTT_BROKER_PORT=1883"
-      - "MQTT_BROKER_USERNAME=admin"
-      - "MQTT_BROKER_PASSWORD=admin"
-      - "MQTT_BROKER_TOPIC=/sensor/turbinator/#"
-      - "PG_HOST=212.237.149.212"
-      - "PG_PORT=5432"
-      - "PG_DATABASE=turbinator"
-      - "PG_USER=turbinator"
-      - "PG_PASSWORD=password"
-    depends_on:
-     - activemq
-     - postgis
-     - orion
+      - PERSEO_FE_URL=http://perseo-fe:9090
+      - MAX_AGE=6000
     networks:
-     - default
-    expose:
-     - "8080"
+      - perseo
+    depends_on:
+      - mongo-db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure      
+
+  perseo-fe:
+    image: telefonicaiot/perseo-fe
+    hostname: perseo-fe
+    networks:
+      - perseo
+      - default
     ports:
-     - "8080:8080"
+      - 9090:9090
+    depends_on:
+      - perseo-core
+    environment:
+      - PERSEO_MONGO_ENDPOINT=mongo-db
+      - PERSEO_CORE_URL=http://perseo-core:8080
+      - PERSEO_LOG_LEVEL=debug
+      - PERSEO_ORION_URL=http://orion:1026/
+      - PERSEO_SMTP_HOST=www.hostname.com
+      - PERSEO_SMTP_PORT=25
+      - PERSEO_SMTP_SECURE=false
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure    
   
   postgis:
     hostname: postgis
@@ -101,6 +108,7 @@ networks:
     ipam:
       config:
         - subnet: 172.188.3.0/24
+  perseo:
 
 volumes:
   mongo-db: ~
