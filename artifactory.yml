@@ -1,0 +1,28 @@
+# https://www.jfrog.com/confluence/display/RTF6X/Installing+with+Docker
+#
+# docker volume create --name artifactory_data
+# docker run --name artifactory-oss -d -v artifactory_data:/var/opt/jfrog/artifactory -p 8081:8081 -p 8082:8082 docker.bintray.io/jfrog/artifactory-oss:latest
+
+version: '3.5'
+
+networks:
+  artifactory-oss:
+    name: artifactory-oss
+
+services:
+  artifactory-oss:
+    image: docker.bintray.io/jfrog/artifactory-oss:latest  
+    hostname: artifactory-oss
+    container_name: artifactory-oss
+    expose:
+      - "8081"
+      - "8082"
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+    networks:
+      - artifactory-oss
+    # environment:
+    #   - "EXTRA_JAVA_OPTIONS='-Xms512m -Xmx2g -Xss256k -XX:+UseG1GC'"
+    volumes:
+      - ./volumes/artifactory:/var/opt/jfrog/artifactory
