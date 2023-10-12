@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>
+            Hello world!
+        </title>
+    </head>
+    <body>
+        Hello from Apache httpd running in Docker. To create a reverse proxy:
+        <ol>
+            <li>
+                enable mod_proxy by removing the # comment sign from the following lines:
+                <ul>
+                    <li>LoadModule proxy_module modules/mod_proxy.so</li>
+                    <li>LoadModule proxy_http_module modules/mod_proxy_http.so</li>
+                    <li>LoadModule ssl_module modules/mod_ssl.so</li>
+                </ul>
+            </li>
+            <li>
+                define a virtual host, either directly in the configuration file or preferably inside a virtual host:
+                <pre>
+SSLProxyEngine on  # since we are proxy-ing to an endpoint with an SSL certificate
+ProxyPass /api/ https://ckan-dataplatform-nl.dataplatform.nl/api/
+ProxyPassReverse /api/ https://ckan-dataplatform-nl.dataplatform.nl/api/            
+                </pre>
+            </li>
+            <li>
+                You can now do an <a href="/api/action/package_show?id=meldingen-participatiepunt-vvn">API call via relative path</a>, without CORS issues
+            </li>
+        </ol>
+    </body>
+</html>

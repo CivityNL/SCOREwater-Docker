@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  apache:
+    image: httpd:latest
+    container_name: httpd-abawduspac
+    ports:
+    - '81:80'
+    volumes:
+    - ./htdocs:/usr/local/apache2/htdocs
+    - ./conf:/usr/local/apache2/conf

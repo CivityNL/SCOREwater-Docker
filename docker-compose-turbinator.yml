@@ -45,36 +45,6 @@ services:
       - "8161:8161"
       - "1883:1883"
       
-  scorewater-turbinator:
-    container_name: scorewater-turbinator
-    hostname: scorewater-turbinator
-    build: scorewater-turbinator
-    environment:
-      - "ACTIVEMQ_BROKER_URL=tcp://activemq:61616"
-      - "ACTIVEMQ_CONCURRENT_CONSUMERS=1"
-      - "ACTIVEMQ_QUEUE_NAME_PREFIX=turbinator"
-      - "CONTEXT_BROKER_URL=http://orion:1026"
-      - "CONTEXT_BROKER_SERVICE=turbinator"
-      - "MQTT_BROKER_URL=tcp://212.237.149.212"
-      - "MQTT_BROKER_PORT=1883"
-      - "MQTT_BROKER_USERNAME=admin"
-      - "MQTT_BROKER_PASSWORD=admin"
-      - "MQTT_BROKER_TOPIC=/sensor/turbinator/#"
-      - "PG_HOST=212.237.149.212"
-      - "PG_PORT=5432"
-      - "PG_DATABASE=turbinator"
-      - "PG_USER=turbinator"
-      - "PG_PASSWORD=password"
-    depends_on:
-     - activemq
-     - postgis
-     - orion
-    networks:
-     - default
-    expose:
-     - "8080"
-    ports:
-     - "8080:8080"
   
   postgis:
     hostname: postgis
